@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Mail;
+
+
 class RegisterController extends Controller
 {
     public function __construct()
@@ -27,7 +29,6 @@ class RegisterController extends Controller
         ],[
             'name.regex' => 'Only characters and spaces allowed.',
         ]);
-
 
         $token = bin2hex(random_bytes(32));
         User::create([

@@ -13,7 +13,6 @@
                                 <h4 class="box-title">Add Teaceher</h4>
                                 <a href="{{ route('all.teacher') }}" class="btn btn-success pull-right">All Teacher</a>
                             </div>
-
                             <form class="form-horizontal form-element" action="{{ route('store.teacher') }}" method="post">
                                 @csrf
                                 <div class="box-body">

@@ -25,6 +25,7 @@
                                             <th>ID</th>
                                             <th>Teacher Name</th>
                                             <th>Subject Name</th>
+                                            <th>Subject Code</th>
                                             <th>Created_at</th>
                                             <th>Action</th>
                                         </tr>
@@ -36,6 +37,7 @@
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $subjects->teacher->name }}</td>
                                                 <td>{{ $subjects->subject_name }}</td>
+                                                <td>{{ $subjects->subject_code }}</td>
                                                 <td>{{ $subjects->created_at->diffForHumans() }}</td>
                                                 <td>
                                                     <a href="{{ route('subject.edit', $subjects->id) }}" class="btn btn-info">Edit</a>

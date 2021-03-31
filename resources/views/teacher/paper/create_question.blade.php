@@ -94,12 +94,15 @@
                                     <div class="form-group form__row hidden">
                                         <label>Answer:</label>
                                         <textarea class="form-control form__input--elevation" name="text" rows="3" placeholder="Enter ..."></textarea>
+                                        <div>
+                                            <label>Marks:</label>
+                                            <input type="text" class="form-control form__input--elevation" name="text_marks" placeholder="Enter Marks">
+                                        </div>
                                     </div>
                                 </div>
-
                                 <!-- /.box-body -->
                                 <div class="box-footer">
-                                    <button type="submit" class="btn btn-rounded btn-primary btn-outline">
+                                    <button type="submit" class="btn btn-rounded btn-primary btn-outline stop-reload">
                                         <i class="ti-save-alt"></i> Save
                                     </button>
                                 </div>
@@ -113,8 +116,8 @@
             <!-- /.content -->
         </div>
     </div>
-    <!-- /.content-wrapper -->
 
+    <!-- /.content-wrapper -->
 
     <script>
         let select = document.querySelector('.change_input');

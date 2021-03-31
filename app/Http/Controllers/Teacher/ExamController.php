@@ -14,19 +14,30 @@ class ExamController extends Controller
         $attempted = DB::table('attempts')
             ->join('users','attempts.user_id','users.id')
             ->join('subjects','attempts.subject_id','subjects.id')
-            ->select('attempts.*','users.name','subjects.subject_name')
+            ->join('questions', 'attempts.question_id','questions.id')
+            ->select('attempts.*','users.name','subjects.subject_name','questions.id as q_id')
             ->where('attempts.teacher_id', auth()->guard('teacher')->id())
             ->where('attempts.status', 0)
             ->get();
-//        return $attempted;
         return view('teacher.exam.attempted_exam', compact('attempted'));
     }
 
     public function ViewAttemptedPaper($id)
     {
         $get_data = DB::table('attempts')->where('id',$id)->first();
-        $papers = Paper::where(['question_type'=>'m','subject_id'=>$get_data->subject_id,'teacher_id'=>$get_data->teacher_id])->get();
-        $texts = Paper::where(['question_type'=>'t','subject_id'=>$get_data->subject_id,'teacher_id'=>$get_data->teacher_id])->get();
+
+        $question_id = DB::table('attempts')
+            ->join('questions', 'attempts.question_id','questions.id')
+            ->where('attempts.id',$id)
+            ->first();
+//        dd($question_id);
+        $explode_question_id = explode(',',$question_id->question_id);
+        $test = Paper::whereIn('id', $explode_question_id)->get();
+        $papers = $test->where('question_type','m')->all();
+        $texts = $test->where('question_type','t')->all();
+
+//        $papers = Paper::where(['question_type'=>'m','subject_id'=>$get_data->subject_id,'teacher_id'=>$get_data->teacher_id])->get();
+//        $texts = Paper::where(['question_type'=>'t','subject_id'=>$get_data->subject_id,'teacher_id'=>$get_data->teacher_id])->get();
         $attempted = DB::table('attempts')
             ->join('users','attempts.user_id','users.id')
             ->join('subjects','attempts.subject_id','subjects.id')
@@ -46,6 +57,8 @@ class ExamController extends Controller
            'obj_abtained' => 'required',
            'sbj_total' => 'required',
            'sbj_obtained' => 'required',
+           'result_date' => 'required',
+           'result_time' => 'required',
         ]);
 
         $total_obj = $request->obj_total;
@@ -58,10 +71,13 @@ class ExamController extends Controller
         $total_marks = $total_obj + $total_sbj;
 
         $total_obtained_marks = $total_obj_obtained + $total_sbj_obtained;
+
+        $announce_reault_date_time = $request->result_date." ". $request->result_time;
         Attempt::where('id',$id)->update([
             'total_marks' => $total_marks,
             'obtained_marks' => $total_obtained_marks,
-            'status' => 1
+            'status' => 1,
+            'result_announce' => $announce_reault_date_time
         ]);
 
         $notification = array(
@@ -111,6 +127,8 @@ class ExamController extends Controller
             'obj_abtained' => 'required',
             'sbj_total' => 'required',
             'sbj_obtained' => 'required',
+            'result_date' => 'required',
+            'result_time' => 'required',
         ]);
 
         $total_obj = $request->obj_total;
@@ -123,10 +141,14 @@ class ExamController extends Controller
         $total_marks = $total_obj + $total_sbj;
 
         $total_obtained_marks = $total_obj_obtained + $total_sbj_obtained;
+        $announce_reault_date_time = $request->result_date." ". $request->result_time;
+
         Attempt::where('id',$id)->update([
             'total_marks' => $total_marks,
             'obtained_marks' => $total_obtained_marks,
-            'status' => 1
+            'status' => 1,
+            'result_announce' => $announce_reault_date_time
+
         ]);
 
         $notification = array(

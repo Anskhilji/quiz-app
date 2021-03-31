@@ -53,6 +53,10 @@
                                                 <label>Textarea</label>
                                                 <textarea class="form-control form__input--elevation" name="text" rows="3" placeholder="Enter ...">{{ $texts->text }}</textarea>
                                                 <span class="text-danger">@error('text'){{$message}}@enderror</span>
+                                                <div>
+                                                    <label>Marks:</label>
+                                                    <input type="text" class="form-control form__input--elevation" name="text_marks" value="{{ $texts->text_marks }}" placeholder="Enter Marks">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -38,7 +38,7 @@ class ResetPasswordController extends Controller
             $userName = $user->name;
             Mail::send('student.auth.reset_template', array('token' => $token,'email'=>request('old_email')), function ($message) use ($userName){
                 $message->to(request('old_email'),$userName)->subject('Verify your email');
-                $message->from('anskhilji900@gmail.com', 'Quiz');
+                $message->from('common@unifyp.com', 'Quiz');
             });
             $notification = array(
                 'message' => 'Please check your email to verify you!',

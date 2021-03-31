@@ -20,6 +20,7 @@ class Paper extends Model
         'correct',
         'question_type',
         'text',
+        'text_marks',
     ];
 
     public function subject()

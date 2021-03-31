@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Teacher\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -19,14 +21,29 @@ class LoginController extends Controller
     public function TeacherLogin(Request $request)
     {
         $validatedData = $request->validate([
-            'email' => 'required',
+            'id' => 'required',
             'password' => 'required',
         ]);
 
-        if(auth()->guard("teacher")->attempt($request->only('email','password'), $request->remember)){
-//            dd(auth()->guard("teacher")->user()->name);
-            return redirect()->route('teacher.dashboard');
-        }else{
+        if(Str::startsWith($request->id, 'tc')){
+            $teacher_id = Str::replaceFirst('tc','', $request->id);
+            $verify = Teacher::where(['id' => $teacher_id])->first();
+
+            if ($verify && auth()->guard('teacher')->attempt(['id' => $teacher_id, 'password' => $request->password],$request->remember)){
+                $notification = array(
+                    'message' => 'Logged in successfully!',
+                    'alert-type' => 'success'
+                );
+                return redirect()->route('teacher.dashboard')->with($notification);
+            }
+            else{
+                $notification = array(
+                    'message' => 'incorrect Credentials',
+                    'alert-type' => 'error'
+                );
+                return redirect()->back()->with($notification);
+            }
+        } else{
             $notification = array(
                 'message' => 'Login credentials incorrect!',
                 'alert-type' => 'error'

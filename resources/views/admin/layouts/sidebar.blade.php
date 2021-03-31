@@ -19,7 +19,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="{{ request()->is('admin/dashboard') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}">
-                    <i data-feather="pie-chart"></i>
+                    <i data-feather="settings" style="font-size: 19px; {{ request()->is('admin/dashboard') ? 'color: #ffffff' : '' }}" class="si si-chart"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
@@ -38,9 +38,22 @@
                 </ul>
             </li>
 
+            <li class="treeview {{ request()->is('admin/student*') ? 'menu-open' : '' }}">
+                <a href="#">
+                    <i class="si si-people" style="font-size: 19px"></i>
+                    <span>Student</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ request()->is('admin/student/list') ? 'active' : '' }}"><a href="{{ route('student.list.all') }}"><i class="ti-more"></i>All Request</a></li>
+                </ul>
+            </li>
+
             <li class="treeview {{ request()->is('admin/subject*') ? 'menu-open' : '' }}">
                 <a href="#">
-                    <i data-feather="book-open"></i>
+                    <i data-feather="settings" style="font-size: 19px;" class="si si-notebook"></i>
                     <span>Subjects</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>

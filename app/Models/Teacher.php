@@ -19,6 +19,7 @@ class Teacher extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'prefix',
         'email',
         'password',
     ];

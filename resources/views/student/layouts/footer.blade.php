@@ -15,6 +15,11 @@
     <script src="{{ asset('assets/vendor_components/datatable/datatables.min.js') }}"></script>
     <script src="{{ asset('js/pages/data-table.js') }}"></script>
 @endif
+
+@if(Request::segment(2) == "papers" && Request::segment(3) == "list")
+    <script src="{{ asset('assets/vendor_components/datatable/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/pages/data-table.js') }}"></script>
+@endif
 <!-- Sunny Admin App -->
 <script src="{{ asset('js/template.js') }}"></script>
 {{--<script src="{{ asset('js/pages/dashboard.js') }}"></script>--}}

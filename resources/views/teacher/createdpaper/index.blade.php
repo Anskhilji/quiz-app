@@ -13,7 +13,7 @@
 
                         <div class="box">
                             <div class="box-header with-border">
-                                <h3 class="box-title">All Subject</h3>
+                                <h3 class="box-title">All Created Paper List</h3>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -24,6 +24,7 @@
                                             <th>ID</th>
                                             <th>Subject Name</th>
                                             <th>Subject Code</th>
+                                            <th>Paper Date</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -34,9 +35,11 @@
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $subjects->subject_name }}</td>
                                                 <td>{{ $subjects->subject_code }}</td>
-                                                <td><a href="{{ route('create.paper.into.question.bank', $subjects->id) }}" class="btn btn-primary">Create Paper</a></td>
+                                                <td>{{ $subjects->date }}</td>
+                                                <td><a href="{{ route('create.paper.into.question.bank.edit', $subjects->id) }}" class="btn btn-primary">Edit Paper</a></td>
                                             </tr>
                                         @endforeach
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>

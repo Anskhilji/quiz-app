@@ -21,10 +21,19 @@
                 @if($status == 'notattempted')
                 <div class="row">
                         <div class="box">
-                            <div class="center">Time: <span id="time" class="timer"></span> minutes!</div>
+                            <div class="center" style="font-size: 36px !important;">Time: <span id="time" style="font-size: 36px !important;" class="timer" ></span> minutes!</div>
+                            <div>
+                                <?php
+                                    $mcqs_total = count($papers);
+                                    $text_total = collect($texts)->sum('text_marks');
+                                    $total = $mcqs_total+$text_total;
+                                ?>
+                                <h4 class="float-right mr-3">Total Quiz Marks: {{ count($papers)." + ".collect($texts)->sum('text_marks')." = ". $total }}</h4>
+                            </div>
                             @php($i =1)
                             <form action="" name="TimerForm" id="TimerForm" class="auto_submit" method="post" >
                                 @csrf
+                                <input type="hidden" name="question_id" value="{{ Request::segment(3) }}">
                                 @foreach($papers as $paper)
                                         <div style="margin-left: 20px; margin-top: 10px">
                                             <span>Q,{{ $i++ }}</span>
@@ -65,10 +74,11 @@
                                     <div style="margin-left: 20px; margin-top: 10px">
                                         <span>Q,{{ $i++ }}</span>
                                         <h4 class="box-title">{{ $text->question }}</h4>
+
                                         <input type="hidden" name="t[]" value="{{$text->id}}">
                                     </div>
                                     <div class="form-group mr-4 ml-4">
-{{--                                        <label>Textarea</label>--}}
+                                        <span>Question Mark: {{ $text->text_marks }}</span>
                                         <textarea name="t{{$text->id}}-ans" rows="5" cols="5" class="form-control" placeholder=""></textarea>
                                     </div>
                                 @endforeach
@@ -90,6 +100,12 @@
         </div>
     </div>
     <!-- /.content-wrapper -->
+    <?php
+        $date = $questions->date;$start_time = strtotime($date." ".$questions->start_time);
+    $end_time = strtotime($date." ".$questions->end_time);
+     $time = $end_time - time();
+
+    ?>
     <script>
             @if($status == 'notattempted')
             let labelTimer = document.querySelector('.timer')  ?? "";
@@ -104,7 +120,7 @@
                     }
                     time--;
                 }
-                let time = 1800;
+                let time = parseInt("{{$time}}");
                 tick();
                 const timer = setInterval(tick,1000);
             }

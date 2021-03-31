@@ -30,7 +30,7 @@
                                         @foreach($papers as $paper)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{ $paper->subject->subject_name }}</td>
+                                                <td>{{ $paper->subject->subject_name ?? '' }}</td>
                                                 <td>{{ $paper->question }}</td>
                                                 <td>
                                                     <a href="{{ route('edit.mcqs', $paper->id) }}" class="btn btn-info btn-sm"><i class="si si-note"></i></a>
@@ -67,7 +67,7 @@
                                         @foreach($texts as $text)
                                             <tr>
                                                 <td>{{ $i++ }}</td>
-                                                <td>{{ $text->subject->subject_name }}</td>
+                                                <td>{{ $text->subject->subject_name ?? '' }}</td>
                                                 <td>{{ $text->question }}</td>
                                                 <td>
                                                     <a href="{{ route('edit.text', $text->id) }}" class="btn btn-info btn-sm"><i class="si si-note"></i></a>

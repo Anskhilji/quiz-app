@@ -56,7 +56,14 @@
                                 </div>
                             </div>
                         @endforeach
+                        <?php
+                        $_total = 0;
+                        ?>
                         @foreach($texts as $text)
+                            <?php
+                            $sub_total = get_total_marks($text->id);
+                            $_total = $_total + $sub_total;
+                            ?>
                             <input type="hidden" name="teacher_id" value="{{$text->teacher_id}}">
                             <input type="hidden" name="subject_id" value="{{$text->subject_id}}">
                             <input type="hidden" name="t{{$text->id}}-type" value="{{ $text->question_type }}">
@@ -75,7 +82,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="">Total Marks</label>
-                                        <input type="number" class="form-control subjective_total">
+                                        <input type="number" class="form-control subjective_total" readonly value="{{ $sub_total }}">
                                     </div>
                                 </div>
                                 <div class="form-group col-6 mr-4 ml-4" style="box-sizing: border-box">
@@ -105,6 +112,22 @@
                         @php($i =1)
                         <form action="{{ route('store.marks.update', $id) }}" method="post" >
                             @csrf
+                            <div class="d-flex justify-content-center">
+                                <h3 class="ml-4">Result Announce Data and Time</h3>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+
+                                <div class="col-md-4">
+                                    <label for="#msqstotal">Date</label>
+                                    <input class="form-control" type="date" name="result_date" value="">
+                                    <span class="text-danger">@error('result_date'){{ $message }}@enderror</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="#msqstotal">Time</label>
+                                    <input class="form-control" type="time" name="result_time" value="">
+                                    <span class="text-danger">@error('result_time'){{ $message }}@enderror</span>
+                                </div>
+                            </div>
                             <h4 class="ml-4 mt-4">Objective Marks</h4>
                             <div class="col-3">
                                 <div class="form-group">
@@ -126,7 +149,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Subjective Total Marks</label>
-                                    <input type="text" name="sbj_total" readonly class="form-control sub_t" placeholder="Text input">
+                                    <input type="text" name="sbj_total" readonly class="form-control sub_t" placeholder="Text input" value="{{$_total}}">
                                     <span class="text-danger">@error('sbj_total'){{ $message }}@enderror</span>
                                 </div>
                             </div>

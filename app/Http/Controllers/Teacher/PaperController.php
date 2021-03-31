@@ -27,18 +27,37 @@ class PaperController extends Controller
             'subject_id.required' => 'Please choose subject',
         ]);
 
-        Paper::create([
-           'teacher_id' => Auth::guard('teacher')->id(),
-           'subject_id' => $request->subject_id,
-           'question' => $request->question,
-           'question_type' => $request->question_type,
-           'option_1' => $request->option_1,
-           'option_2' => $request->option_2,
-           'option_3' => $request->option_3,
-           'option_4' => $request->option_4,
-           'correct' => $request->correct,
-           'text' => $request->text,
-        ]);
+        if (!empty(trim($request->text_marks))){
+            Paper::create([
+                'teacher_id' => Auth::guard('teacher')->id(),
+                'subject_id' => $request->subject_id,
+                'question' => $request->question,
+                'question_type' => $request->question_type,
+                'option_1' => $request->option_1,
+                'option_2' => $request->option_2,
+                'option_3' => $request->option_3,
+                'option_4' => $request->option_4,
+                'correct' => $request->correct,
+                'text' => $request->text,
+                'text_marks' => $request->text_marks,
+            ]);
+        }else{
+            Paper::create([
+                'teacher_id' => Auth::guard('teacher')->id(),
+                'subject_id' => $request->subject_id,
+                'question' => $request->question,
+                'question_type' => $request->question_type,
+                'option_1' => $request->option_1,
+                'option_2' => $request->option_2,
+                'option_3' => $request->option_3,
+                'option_4' => $request->option_4,
+                'correct' => $request->correct,
+                'text' => $request->text,
+                'text_marks' => 0,
+            ]);
+        }
+
+
 
         $notification = array(
             'message' => 'Question added Successfully!',
@@ -80,18 +99,35 @@ class PaperController extends Controller
             'subject_id.required' => 'Please choose subject',
         ]);
 
-        Paper::where('id', $id)->update([
-            'teacher_id' => Auth::guard('teacher')->id(),
-            'subject_id' => $request->subject_id,
-            'question' => $request->question,
-            'question_type' => $request->question_type,
-            'option_1' => $request->option_1,
-            'option_2' => $request->option_2,
-            'option_3' => $request->option_3,
-            'option_4' => $request->option_4,
-            'correct' => $request->correct,
-            'text' => $request->text,
-        ]);
+      if (!empty(trim($request->text_marks))){
+          Paper::where('id', $id)->update([
+              'teacher_id' => Auth::guard('teacher')->id(),
+              'subject_id' => $request->subject_id,
+              'question' => $request->question,
+              'question_type' => $request->question_type,
+              'option_1' => $request->option_1,
+              'option_2' => $request->option_2,
+              'option_3' => $request->option_3,
+              'option_4' => $request->option_4,
+              'correct' => $request->correct,
+              'text' => $request->text,
+              'text_marks' => $request->text_marks,
+          ]);
+      }else{
+          Paper::where('id', $id)->update([
+              'teacher_id' => Auth::guard('teacher')->id(),
+              'subject_id' => $request->subject_id,
+              'question' => $request->question,
+              'question_type' => $request->question_type,
+              'option_1' => $request->option_1,
+              'option_2' => $request->option_2,
+              'option_3' => $request->option_3,
+              'option_4' => $request->option_4,
+              'correct' => $request->correct,
+              'text' => $request->text,
+              'text_marks' => 0,
+          ]);
+      }
 
         $notification = array(
             'message' => 'MCQ,s updated Successfully!',
@@ -134,18 +170,35 @@ class PaperController extends Controller
             'subject_id.required' => 'Please choose subject',
         ]);
 
-        Paper::where('id', $id)->update([
-            'teacher_id' => Auth::guard('teacher')->id(),
-            'subject_id' => $request->subject_id,
-            'question' => $request->question,
-            'question_type' => $request->question_type,
-            'option_1' => $request->option_1,
-            'option_2' => $request->option_2,
-            'option_3' => $request->option_3,
-            'option_4' => $request->option_4,
-            'correct' => $request->correct,
-            'text' => $request->text,
-        ]);
+        if (!empty(trim($request->text_marks))){
+            Paper::where('id', $id)->update([
+                'teacher_id' => Auth::guard('teacher')->id(),
+                'subject_id' => $request->subject_id,
+                'question' => $request->question,
+                'question_type' => $request->question_type,
+                'option_1' => $request->option_1,
+                'option_2' => $request->option_2,
+                'option_3' => $request->option_3,
+                'option_4' => $request->option_4,
+                'correct' => $request->correct,
+                'text' => $request->text,
+                'text_marks' => $request->text_marks,
+            ]);
+        }else{
+            Paper::where('id', $id)->update([
+                'teacher_id' => Auth::guard('teacher')->id(),
+                'subject_id' => $request->subject_id,
+                'question' => $request->question,
+                'question_type' => $request->question_type,
+                'option_1' => $request->option_1,
+                'option_2' => $request->option_2,
+                'option_3' => $request->option_3,
+                'option_4' => $request->option_4,
+                'correct' => $request->correct,
+                'text' => $request->text,
+                'text_marks' => 0,
+            ]);
+        }
 
         $notification = array(
             'message' => 'Question updated Successfully!',

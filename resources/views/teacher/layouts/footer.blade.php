@@ -7,7 +7,6 @@
 
 <!-- Vendor JS -->
 <script src="{{ asset('js/vendors.min.js') }}"></script>
-<script src="{{ asset('assets/icons/feather-icons/feather.min.js') }}"></script>
 
 @if(Request::segment(2) == "teacher" && Request::segment(3) == "all")
 <script src="{{ asset('assets/vendor_components/datatable/datatables.min.js') }}"></script>
@@ -67,16 +66,10 @@
 @if(Request::segment(3) == "marked" && Request::segment(4) == "view")
     <script>
         $(document).ready(function (){
+            {{--var sub_t = '{{$_total}}';--}}
             var correct = $('input[data-answer="correct"]:checked');
             // console.log(correct);
             $('.obt_mcqs').val(correct.length);
-
-            $('.subjective_total').on('change', function () {
-                var sub_total = $(this).val();
-                // console.log(sub_val);
-                let grand_total = $('.sub_t').val();
-                $('.sub_t').val(parseInt(+sub_total) + parseInt(+grand_total));
-            })
 
             $('.obtained_total').on('change', function () {
                 var obt_total = $(this).val();
@@ -149,5 +142,7 @@
     }
     @endif
 </script>
+<script src="{{ asset('assets/icons/feather-icons/feather.min.js') }}"></script>
+
 </body>
 </html>

@@ -25,6 +25,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-2 control-label">Subject Code</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="subject_code" class="form-control" id="inputEmail3" placeholder="e.g eng101">
+                                            <span class="text-danger">@error('subject_code'){{ $message }}@enderror</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <label class="col-sm-2 control-label">Teacher Name</label>
                                         <select class="form-control col-sm-10" name="teacher_id">
                                             <option selected disabled>Choose an option</option>

@@ -25,6 +25,7 @@ class SubjectController extends Controller
     {
         $validatedData = $request->validate([
            'subject_name' => 'required|max:50',
+           'subject_code' => 'required|max:50',
            'teacher_id' => 'required|numeric',
         ]);
 
@@ -34,8 +35,9 @@ class SubjectController extends Controller
 
         if(!$check){
             Subject::create([
-                'subject_name' => $request->subject_name,
                 'teacher_id' => $request->teacher_id,
+                'subject_name' => $request->subject_name,
+                'subject_code' => $request->subject_code,
             ]);
             $notification = array(
                 'message' => 'Subject added successfully!',
@@ -63,12 +65,14 @@ class SubjectController extends Controller
     {
         $validatedData = $request->validate([
             'subject_name' => 'required|max:50',
+            'subject_code' => 'required|max:50',
             'teacher_id' => 'required',
         ]);
 
         Subject::where('id', $id)->update([
-            'subject_name' => $request->subject_name,
             'teacher_id' => $request->teacher_id,
+            'subject_name' => $request->subject_name,
+            'subject_code' => $request->subject_code,
         ]);
         $notification = array(
             'message' => 'Subject updated successfully!',

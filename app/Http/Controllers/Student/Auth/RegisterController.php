@@ -30,22 +30,22 @@ class RegisterController extends Controller
             'name.regex' => 'Only characters and spaces allowed.',
         ]);
 
-        $token = bin2hex(random_bytes(32));
+//        $token = bin2hex(random_bytes(32));
         User::create([
            'name' => $request->name,
            'email' => $request->email,
-           'token' => $token,
+//           'token' => $token,
            'password' => Hash::make($request->password),
         ]);
 
-        Mail::send('student.email_template', array('token' => $token,'email'=>request('email')), function ($message){
-            $message->to(request('email'),request('name'))->subject('Verify your email');
-            $message->from('anskhilji900@gmail.com','Quiz');
-
-        });
+//        Mail::send('student.email_template', array('token' => $token,'email'=>request('email')), function ($message){
+//            $message->to(request('email'),request('name'))->subject('Verify your email');
+//            $message->from('anskhilji900@gmail.com','Quiz');
+//
+//        });
 
         $notification = array(
-            'message' => 'Check your email!',
+            'message' => 'Thanks for your registration. We will inform you after approved your request.',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);

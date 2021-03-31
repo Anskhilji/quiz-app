@@ -38,9 +38,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-transparent text-white"><i class="ti-user"></i></span>
                                     </div>
-                                    <input type="email" name="email" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="Enter your email">
+                                    <input type="text" name="id" class="form-control pl-15 bg-transparent text-white plc-white" placeholder="Teacher ID">
                                 </div>
-                                <span class="text-danger">@error('email'){{ $message }}@enderror</span>
+                                <span class="text-danger">@error('id'){{ $message }}@enderror</span>
 
                             </div>
                             <div class="form-group">

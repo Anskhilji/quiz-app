@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Mail;
 class TeacherControlelr extends Controller
 {
 
@@ -24,22 +24,33 @@ class TeacherControlelr extends Controller
     public function StoreTeacher(Request $request)
     {
         $validatedData = $request->validate([
-           'name' => 'required|max:50|min:2',
-           'email' => 'required|email|unique:teachers',
-           'password' => 'required|confirmed',
+            'name' => 'required|max:50|min:2',
+            'email' => 'required|email|unique:teachers',
+            'password' => 'required|confirmed',
         ]);
 
-        Teacher::create([
-           'name' => $request->name,
-           'email' => $request->email,
-           'password' => Hash::make($request->password),
+        $teacher  = Teacher::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
+
+        $get_pre_id = Teacher::where('id',$teacher->id)->first();
+        $teacher_prefix     = $get_pre_id->prefix;
+        $id                 = $get_pre_id->id;
+        $teacher_id         = $teacher_prefix.$id;
+
+        Mail::send('admin.teacher.email_template', array('id' => $teacher_id, 'password' => $request->password), function ($message) {
+            $message->to(\request('email'),\request('name'))->subject('Teacher Login Info');
+            $message->from('common@unifyp.com','Quiz');
+        });
 
         $notification = array(
-            'message' => 'Teacher added successfully!',
+            'message' => 'Teacher is added and email notification is sent successfully to the teacher',
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+
 
     }
 

@@ -19,22 +19,29 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="{{ request()->is('teacher/dashboard') ? 'active' : '' }}">
                 <a href="{{ route('teacher.dashboard') }}">
-                    <i data-feather="pie-chart"></i>
+                    <i data-feather="settings" style="font-size: 19px; {{ request()->is('teacher/dashboard') ? 'color: #ffffff' : '' }}" class="si si-chart"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
-            <li class="{{ request()->is('teacher/subjects') ? 'active' : '' }}">
+            <li class="{{ request()->is('teacher/subjects') || request()->is('teacher/subject/all/question') || request()->is('teacher/subject/all/question*')  ? 'active' : '' }}">
                 <a href="{{ route('teacher.subject') }}">
-                    <i data-feather="book-open"></i>
+                    <i data-feather="settings" style="font-size: 19px; {{ request()->is('teacher/subjects') || request()->is('teacher/subject/all/question') || request()->is('teacher/subject/all/question*')? 'color: #ffffff' : '' }}" class="si si-notebook"></i>
                     <span>All Subjects</span>
+                </a>
+            </li>
+
+            <li class="{{ request()->is('teacher/created/paper/list') || request()->is('teacher/created/paper/edit*') ? 'active' : '' }}">
+                <a href="{{ route('teacher.created.paper.list') }}">
+                    <i data-feather="settings" style="font-size: 19px; {{ request()->is('teacher/created/paper/list') || request()->is('teacher/created/paper/edit*') ? 'color:#ffff' : '' }}" class="si si-event"></i>
+                    <span>Created Paper</span>
                 </a>
             </li>
 
             <li class="treeview {{ request()->is('teacher/add/question') ? 'menu-open' : '' }}">
                 <a href="#">
-                    <i data-feather="map"></i>
-                    <span>Create Paper</span>
+                    <i data-feather="" style="font-size: 19px" class="si si-note"></i>
+                    <span>Questions</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>
             </span>
@@ -47,7 +54,7 @@
 
             <li class="treeview {{ request()->is('teacher/subject/request') ? 'menu-open' : '' }}">
                 <a href="#">
-                    <i data-feather="arrow-down-circle"></i>
+                    <i data-feather="" style="font-size: 19px" class="si si-action-redo"></i>
                     <span>Subject Request</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-right pull-right"></i>

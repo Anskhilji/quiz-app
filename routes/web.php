@@ -30,7 +30,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
     Route::get('/teacher/{id}/delete', [\App\Http\Controllers\Admin\TeacherControlelr::class, 'DeleteTeacher'])->name('teacher.delete');
     Route::get('/teacher/edit/{id}', [\App\Http\Controllers\Admin\TeacherControlelr::class, 'EditTeacher'])->name('teacher.edit');
     Route::post('/teacher/update/{id}', [\App\Http\Controllers\Admin\TeacherControlelr::class, 'UpdateTeacher'])->name('update.teacher');
-//    Subject
+
+    // Student
+    Route::get('/student/list', [\App\Http\Controllers\Admin\StudentController::class, 'StudentRequestList'])->name('student.list.all');
+    Route::get('/request/approve/{id}/{name}/{email}', [\App\Http\Controllers\Admin\StudentController::class, 'RequestApprove'])->name('request.approve');
+    Route::get('/request/delete/{id}', [\App\Http\Controllers\Admin\StudentController::class, 'RequestDelete'])->name('student.request.delete');
+
+
+
+    //    Subject
     Route::get('/subject/all', [\App\Http\Controllers\Admin\SubjectController::class, 'AllSubject'])->name('all.subject');
     Route::get('/subject/add', [\App\Http\Controllers\Admin\SubjectController::class, 'AddSubject'])->name('add.subject');
     Route::post('/subject/store', [\App\Http\Controllers\Admin\SubjectController::class, 'StoreSubject'])->name('store.subject');
@@ -73,7 +81,15 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'teacher'], function (){
     Route::get('/subject/request/inactive/{id}', [\App\Http\Controllers\Teacher\SubjectRequestController::class, 'InActiveRequest'])->name('teacher.request.inactive');
     Route::get('/subject/request/active/{id}', [\App\Http\Controllers\Teacher\SubjectRequestController::class, 'ActiveRequest'])->name('teacher.request.active');
     Route::get('/subject/request/delete/{id}', [\App\Http\Controllers\Teacher\SubjectRequestController::class, 'DeleteRequest'])->name('teacher.request.delete');
-// Exams All
+// create.paper.into.question.bank
+    Route::get('/subject/all/question/{id}', [\App\Http\Controllers\Teacher\SubjectQuestionBankController::class, 'SubjectAllQuestion'])->name('create.paper.into.question.bank');
+    Route::post('/subject/create/quiz', [\App\Http\Controllers\Teacher\SubjectQuestionBankController::class, 'CreateQuiz'])->name('create.quiz');
+// Created Paper
+    Route::get('/created/paper/list', [\App\Http\Controllers\Teacher\SubjectQuestionBankController::class, 'CreatedPaperList'])->name('teacher.created.paper.list');
+    Route::get('/created/paper/edit/{id}', [\App\Http\Controllers\Teacher\SubjectQuestionBankController::class, 'CreatedPaperEdit'])->name('create.paper.into.question.bank.edit');
+    Route::post('/created/paper/edit/store/{id}', [\App\Http\Controllers\Teacher\SubjectQuestionBankController::class, 'CreatedPaperEditStore'])->name('update.quiz');
+
+    // Exams All
 
     Route::get('exam/attempted',[\App\Http\Controllers\Teacher\ExamController::class,'ExamAttempt'])->name('teacher.exam.attempted');
     Route::get('exam/attempted/view/{id}',[\App\Http\Controllers\Teacher\ExamController::class,'ViewAttemptedPaper'])->name('view.attempted.paper');
@@ -115,9 +131,14 @@ Route::post('update/password', [ProfileController::class, 'UpdatePassword'])->na
 Route::get('choose/subject', [SubjectRequestController::class, 'ChooseSubject'])->name('choose.subject');
 Route::post('store/subject/request', [SubjectRequestController::class, 'StoreSubRequest'])->name('store.subrequest');
 
+// all.papers.list
+Route::get('all/papers/list', [ViewPaperController::class, 'AllPapersList'])->name('all.papers.list');
+
+
 //View Paper
 Route::match(["get", "post"],'view/paper/{id}', [ViewPaperController::class, 'ViewPaper'])->name('view.paper');
 Route::match(["get", "post"],'view/result', [\App\Http\Controllers\Student\ResultController::class, 'StudentResult'])->name('student.view.result');
+
 
 //View Result
 

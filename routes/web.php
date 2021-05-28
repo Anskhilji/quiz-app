@@ -30,13 +30,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function (){
     Route::get('/teacher/{id}/delete', [\App\Http\Controllers\Admin\TeacherControlelr::class, 'DeleteTeacher'])->name('teacher.delete');
     Route::get('/teacher/edit/{id}', [\App\Http\Controllers\Admin\TeacherControlelr::class, 'EditTeacher'])->name('teacher.edit');
     Route::post('/teacher/update/{id}', [\App\Http\Controllers\Admin\TeacherControlelr::class, 'UpdateTeacher'])->name('update.teacher');
-
     // Student
     Route::get('/student/list', [\App\Http\Controllers\Admin\StudentController::class, 'StudentRequestList'])->name('student.list.all');
     Route::get('/request/approve/{id}/{name}/{email}', [\App\Http\Controllers\Admin\StudentController::class, 'RequestApprove'])->name('request.approve');
     Route::get('/request/delete/{id}', [\App\Http\Controllers\Admin\StudentController::class, 'RequestDelete'])->name('student.request.delete');
-
-
 
     //    Subject
     Route::get('/subject/all', [\App\Http\Controllers\Admin\SubjectController::class, 'AllSubject'])->name('all.subject');
@@ -90,7 +87,6 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'teacher'], function (){
     Route::post('/created/paper/edit/store/{id}', [\App\Http\Controllers\Teacher\SubjectQuestionBankController::class, 'CreatedPaperEditStore'])->name('update.quiz');
 
     // Exams All
-
     Route::get('exam/attempted',[\App\Http\Controllers\Teacher\ExamController::class,'ExamAttempt'])->name('teacher.exam.attempted');
     Route::get('exam/attempted/view/{id}',[\App\Http\Controllers\Teacher\ExamController::class,'ViewAttemptedPaper'])->name('view.attempted.paper');
     Route::post('store/marks/{id}',[\App\Http\Controllers\Teacher\ExamController::class,'StoreMarks'])->name('store.marks');

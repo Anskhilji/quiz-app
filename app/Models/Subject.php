@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Teacher;
 use App\Models\SubRequest;
 class Subject extends Model
 {
@@ -22,6 +22,9 @@ class Subject extends Model
 
     public function request()
     {
-        return $this->hasOne(SubRequest::class,'subject', 'id');
+        return $this->hasOne(SubRequest::class,'id', 'subject_id');
     }
+
+
+
 }
